@@ -201,8 +201,8 @@ object os extends Module {
     object jvm extends Cross[OsZipJvmModule](scalaVersions)
     trait OsZipJvmModule extends OsLibModule
 
-    val pkg = "os.shaded_org_apache_tools_zip"
-    val zipSrc = millSourcePath / "src" / "os/shaded_org_apache_tools_zip"
+    val pkg = "os.internal.zip"
+    val zipSrc = millSourcePath / "src" / "os/internal/zip"
 
     def apacheAntZipOriginalSource: T[PathRef] = Task(persistent = true) {
       if (!_root_.os.exists(Task.dest / "unzipped")) {
@@ -230,7 +230,7 @@ object os extends Module {
         .filter(_.ext == "java")
         .foreach { p =>
           val content = _root_.os.read(p)
-            .replaceAll("org.apache.tools.zip", "os.shaded_org_apache_tools_zip")
+            .replaceAll("org.apache.tools.zip", pkg)
             .replaceAll("(?m)^public ", "")
           _root_.os.write(zipSrc / p.last, content)
         }

@@ -1,6 +1,5 @@
 package test.os
 
-import os.zip
 import test.os.TestUtil.prep
 import utest._
 
@@ -114,7 +113,7 @@ object ZipOpTests extends TestSuite {
 
       val stream = os.write.outputStream(wd / "zipStreamFunction.zip")
 
-      val writable = zip.stream(sources = Seq(wd / "File.txt"))
+      val writable = os.zip.stream(sources = Seq(wd / "File.txt"))
 
       writable.writeBytesTo(stream)
       stream.close()
